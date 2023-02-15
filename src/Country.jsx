@@ -1,10 +1,15 @@
+import Weather from './Weather';
+import { useState } from 'react';
+
 const Country = props => {
+	const [showWeather, setShowWeather] = useState(false);
 	const languages = props.languages;
 	const languageArray = [];
 
 	for (const language in languages) {
 		languageArray.push(languages[language]);
 	}
+
 	return (
 		<div>
 			<h2>{props.country}</h2>
@@ -16,6 +21,11 @@ const Country = props => {
 				))}
 			</ul>
 			<img src={props.flag.png} alt={props.flag.alt} />
+			<br />
+			<button onClick={() => setShowWeather(!showWeather)}>
+				Find weather in {props.capital}
+			</button>
+			{showWeather && <Weather capital={props.capital} />}
 		</div>
 	);
 };
